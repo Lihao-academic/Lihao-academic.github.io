@@ -43,18 +43,18 @@
 ;
 
 /* ====================================================
-   Custom Card UI Effect V11 (回归 V8 封神版 + 终极无损修复)
+   Custom Card UI Effect V12 (终极对称法则：打穿暗黑套娃)
    ==================================================== */
 
-/* 1. 日间全局渐变（锁定拉伸尺寸，绝对防止底部漏底色） */
+/* 1. 日间全局渐变锁定（完美铺满） */
 html, body {
   background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%) !important;
   background-attachment: fixed !important;
-  background-size: cover !important; /* 关键修复：让背景强制拉满屏幕 */
+  background-size: cover !important;
   min-height: 100vh !important;
 }
 
-/* 2. 底部页脚透明化（保留 V8 最优设定） */
+/* 2. 底部页脚隐藏（保留 V8 完美设定） */
 .page__footer {
   background-color: transparent !important;
   border-top: none !important;
@@ -75,30 +75,36 @@ html, body {
   .page, .archive { padding: 20px 20px !important; border-radius: 12px !important; }
 }
 
-/* 4. 终极暗黑模式（精准修复横幅与底部断层） */
+/* 4. 终极暗黑模式：严格对称，绝不漏底 */
 
 /* 系统级夜间模式 */
 @media (prefers-color-scheme: dark) {
   html, body { background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important; background-size: cover !important; }
   .page, .archive { background-color: #1e1e1e !important; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important; }
-  /* 障眼法：将横幅刷成和背景最顶部相同的颜色，完美伪装融合 */
-  .masthead { background-color: #1f1c2c !important; border-bottom: none !important; }
+  /* 同时渲染外层和内层，彻底消灭默认黑条 */
+  .masthead, .masthead__inner-wrap { background: #1f1c2c !important; background-color: #1f1c2c !important; border-bottom: none !important; }
 }
 
-/* 按钮触发的夜间模式：同步 HTML 和 BODY，彻底消灭底部蓝条 */
+/* 按钮触发的夜间模式全局背景 */
 html[data-theme="dark"], html[data-theme="dark"] body,
 body.dark-theme, body.theme--dark, .initial-theme-dark body, body[class*="dark"], html.dark body {
   background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important;
   background-size: cover !important;
 }
 
-/* 障眼法：精准替换夜间横幅颜色 */
-html[data-theme="dark"] .masthead, body.dark-theme .masthead, body.theme--dark .masthead, body[class*="dark"] .masthead, html.dark .masthead {
+/* 【关键狙击】不仅射杀外层 .masthead，还要把里面那个顽固的 .masthead__inner-wrap 一起染成紫灰色！ */
+html[data-theme="dark"] .masthead, html[data-theme="dark"] .masthead__inner-wrap,
+body.dark-theme .masthead, body.dark-theme .masthead__inner-wrap,
+body.theme--dark .masthead, body.theme--dark .masthead__inner-wrap,
+body[class*="dark"] .masthead, body[class*="dark"] .masthead__inner-wrap,
+html.dark .masthead, html.dark .masthead__inner-wrap {
+  background: #1f1c2c !important;
   background-color: #1f1c2c !important;
   border-bottom: none !important;
+  box-shadow: none !important;
 }
 
-/* 夜间模式卡片自动变深 */
+/* 夜间模式卡片变深色 */
 html[data-theme="dark"] .page, html[data-theme="dark"] .archive,
 body.dark-theme .page, body.dark-theme .archive,
 body.theme--dark .page, body.theme--dark .archive,
