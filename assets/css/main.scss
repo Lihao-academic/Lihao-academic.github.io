@@ -43,28 +43,43 @@
 ;
 
 /* ====================================================
-   Custom Card UI Effect (悬浮卡片效果改造)
+   Custom Card UI Effect (悬浮卡片 + 渐变 + 夜间模式适配)
    ==================================================== */
 
-/* 1. 把最底层的网页背景变成极淡的灰蓝色，提供层次感 */
+/* 1. 日间模式：极优雅的灰蓝色微渐变背景 */
 body {
-  background-color: #f5f7fa !important; 
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%) !important;
+  background-attachment: fixed !important; /* 关键：让渐变固定，滚动网页时背景不动，更显高级 */
 }
 
-/* 2. 把正文阅读区和列表区变成悬浮的纯白卡片 */
+/* 2. 日间模式：纯白悬浮卡片 */
 .page, .archive {
   background-color: #ffffff !important;
-  padding: 40px 50px !important; /* 卡片内部留出舒适的呼吸边缘 */
-  border-radius: 16px !important; /* 现代感的圆角 */
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04) !important; /* 极其柔和的高级阴影 */
-  margin-top: 30px !important; /* 顶部留白 */
-  margin-bottom: 40px !important; /* 底部留白 */
+  padding: 40px 50px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05) !important;
+  margin-top: 30px !important;
+  margin-bottom: 40px !important;
 }
 
-/* 3. 微调手机端的显示效果，防止卡片把屏幕撑爆 */
+/* 3. 手机端响应式微调 */
 @media (max-width: 768px) {
   .page, .archive {
     padding: 20px 20px !important;
     border-radius: 12px !important;
+  }
+}
+
+/* 4. 夜间模式魔法 (Dark Mode) */
+@media (prefers-color-scheme: dark) {
+  /* 夜间模式：深邃的极客黑灰渐变背景 */
+  body {
+    background: linear-gradient(135deg, #121212 0%, #1a1b1e 100%) !important;
+  }
+  
+  /* 夜间模式：深灰色卡片（比背景稍微亮一点，保留卡片的悬浮层次感） */
+  .page, .archive {
+    background-color: #242526 !important; 
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important; /* 夜间模式下阴影稍微加深 */
   }
 }
