@@ -42,11 +42,12 @@
     "vendor/font-awesome/brands"
 ;
 
+
 /* ====================================================
-   Custom Card UI Effect V12 (终极对称法则：打穿暗黑套娃)
+   Custom Card UI Effect V13 (最高权重清场：彻底粉碎黑带与白条)
    ==================================================== */
 
-/* 1. 日间全局渐变锁定（完美铺满） */
+/* 1. 全局渐变背景锁定（完美铺满，消除底部断层） */
 html, body {
   background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%) !important;
   background-attachment: fixed !important;
@@ -54,13 +55,28 @@ html, body {
   min-height: 100vh !important;
 }
 
-/* 2. 底部页脚隐藏（保留 V8 完美设定） */
-.page__footer {
-  background-color: transparent !important;
-  border-top: none !important;
+@media (prefers-color-scheme: dark) {
+  html, body { background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important; }
 }
 
-/* 3. 纯白悬浮主内容卡片 */
+html[data-theme="dark"] body, body.dark-theme, body.theme--dark, body[class*="dark"], html.dark body {
+  background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important;
+  background-size: cover !important;
+}
+
+/* 2. 穷举级透明化打击（无论白天黑夜、不论多高权重，强制扒掉所有外壳底漆） */
+.masthead, .masthead__inner-wrap, .greedy-nav, #main, .initial-content, .page__wrapper, .page__footer, .page__footer-wrapper,
+html[data-theme="dark"] .masthead, html[data-theme="dark"] .masthead__inner-wrap, html[data-theme="dark"] .greedy-nav,
+body.dark-theme .masthead, body.dark-theme .masthead__inner-wrap, body.dark-theme .greedy-nav,
+html.dark .masthead, html.dark .masthead__inner-wrap, html.dark .greedy-nav,
+body[class*="dark"] .masthead, body[class*="dark"] .masthead__inner-wrap, body[class*="dark"] .greedy-nav {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 3. 唯一的实体：纯白/深灰悬浮主内容卡片 */
 .page, .archive {
   background-color: #ffffff !important;
   padding: 40px 50px !important;
@@ -70,41 +86,15 @@ html, body {
   margin-bottom: 40px !important;
 }
 
-/* 手机端响应式微调 */
 @media (max-width: 768px) {
   .page, .archive { padding: 20px 20px !important; border-radius: 12px !important; }
 }
 
-/* 4. 终极暗黑模式：严格对称，绝不漏底 */
-
-/* 系统级夜间模式 */
-@media (prefers-color-scheme: dark) {
-  html, body { background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important; background-size: cover !important; }
-  .page, .archive { background-color: #1e1e1e !important; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important; }
-  /* 同时渲染外层和内层，彻底消灭默认黑条 */
-  .masthead, .masthead__inner-wrap { background: #1f1c2c !important; background-color: #1f1c2c !important; border-bottom: none !important; }
-}
-
-/* 按钮触发的夜间模式全局背景 */
-html[data-theme="dark"], html[data-theme="dark"] body,
-body.dark-theme, body.theme--dark, .initial-theme-dark body, body[class*="dark"], html.dark body {
-  background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important;
-  background-size: cover !important;
-}
-
-/* 【关键狙击】不仅射杀外层 .masthead，还要把里面那个顽固的 .masthead__inner-wrap 一起染成紫灰色！ */
-html[data-theme="dark"] .masthead, html[data-theme="dark"] .masthead__inner-wrap,
-body.dark-theme .masthead, body.dark-theme .masthead__inner-wrap,
-body.theme--dark .masthead, body.theme--dark .masthead__inner-wrap,
-body[class*="dark"] .masthead, body[class*="dark"] .masthead__inner-wrap,
-html.dark .masthead, html.dark .masthead__inner-wrap {
-  background: #1f1c2c !important;
-  background-color: #1f1c2c !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
-}
-
 /* 夜间模式卡片变深色 */
+@media (prefers-color-scheme: dark) {
+  .page, .archive { background-color: #1e1e1e !important; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important; }
+}
+
 html[data-theme="dark"] .page, html[data-theme="dark"] .archive,
 body.dark-theme .page, body.dark-theme .archive,
 body.theme--dark .page, body.theme--dark .archive,
