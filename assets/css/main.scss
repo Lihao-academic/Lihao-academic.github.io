@@ -43,15 +43,15 @@
 ;
 
 /* ====================================================
-   Custom Card UI Effect V8.3 (坚守 V8 骨架 + 终极清场修复手机端首页白块扁缩)
+   Custom Card UI Effect V8.4 (坚守 V8 骨架 + 彻底修复“高度塌陷”问题)
    ==================================================== */
 
-/* 1. 全局渐变背景钉死 */
+/* 1. 全局渐变背景（天空之境 & 暗紫灰，钉死背景防漏底） */
 html, body {
   background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%) !important;
   background-attachment: fixed !important;
   background-size: cover !important;
-  min-height: 100vh !important;
+  min-height: 100vh !important; 
 }
 
 /* 2. 底部页脚透明化 */
@@ -60,7 +60,7 @@ html, body {
   border-top: none !important;
 }
 
-/* 3. 电脑端：纯白悬浮主内容卡片完美设定 */
+/* 3. 纯白悬浮主内容卡片 */
 .page, .archive {
   background-color: #ffffff !important;
   padding: 40px 50px !important;
@@ -68,40 +68,46 @@ html, body {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08) !important;
   margin-top: 30px !important;
   margin-bottom: 40px !important;
+  
+  /* 【关键治本修复：彻底解决高度塌陷，强制卡片包裹所有文字！】 */
+  display: flow-root !important; 
+  height: auto !important;
+  box-sizing: border-box !important;
 }
 
-
-/* 📱 手机端响应式终极全屏清场（附带盒模型强制锁定） */
+/* 📱 手机端响应式微调 */
 @media (max-width: 768px) {
-  .layout--home #main {
-    max-width: none !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    width: 100% !important;
-  }
-  
-  /* 强制拉伸手机端卡片，绝不允许压扁 */
   .page, .archive {
-    box-sizing: border-box !important; /* 关键：锁定盒模型，防止 padding 干扰宽度计算 */
-    width: 92% !important; /* 放弃 calc，直接用 92% 相对宽度，留出完美边距 */
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding: 20px !important;
+    padding: 20px 20px !important;
     border-radius: 12px !important;
+    width: 100% !important;
   }
 }
 
 /* 4. 终极暗黑模式 */
+
+/* 系统级黑夜 */
 @media (prefers-color-scheme: dark) {
   html, body { background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important; background-attachment: fixed !important; background-size: cover !important; }
   .page, .archive { background-color: #1e1e1e !important; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important; }
 }
-html[data-theme="dark"], html[data-theme="dark"] body, body.dark-theme, body.theme--dark, .initial-theme-dark body, body[class*="dark"], html.dark, html.dark body {
+
+/* 兼容点击月亮按钮触发的黑夜模式 */
+html[data-theme="dark"], html[data-theme="dark"] body, 
+body.dark-theme, body.theme--dark, .initial-theme-dark body, body[class*="dark"], 
+html.dark, html.dark body {
   background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important;
   background-attachment: fixed !important;
   background-size: cover !important;
 }
-html[data-theme="dark"] .page, html[data-theme="dark"] .archive, body.dark-theme .page, body.dark-theme .archive, body.theme--dark .page, body.theme--dark .archive, .initial-theme-dark .page, .initial-theme-dark .archive, body[class*="dark"] .page, body[class*="dark"] .archive, html.dark .page, html.dark .archive {
+
+/* 夜间模式卡片变深色 */
+html[data-theme="dark"] .page, html[data-theme="dark"] .archive,
+body.dark-theme .page, body.dark-theme .archive,
+body.theme--dark .page, body.theme--dark .archive,
+.initial-theme-dark .page, .initial-theme-dark .archive,
+body[class*="dark"] .page, body[class*="dark"] .archive,
+html.dark .page, html.dark .archive {
   background-color: #1e1e1e !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
 }
