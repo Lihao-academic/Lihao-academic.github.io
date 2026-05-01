@@ -74,6 +74,7 @@ html, body {
   .page, .archive {
     padding: 20px 20px !important;
     border-radius: 12px !important;
+    width: calc(100% - 40px) !important;
   }
 }
 
