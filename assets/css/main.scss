@@ -1,68 +1,31 @@
----
----
-
-/*
- * This file controls what is imported from /_sass
- *
- * Note that the files are processed in the order they are imported, so they are partly
-   sorted by the dependencies. Also, the first two lines of the file are required by Jekyll.
- */
-
-@import
-    "vendor/breakpoint/breakpoint",
-
-    "themes",
-    "theme/{{ site.site_theme | default: 'default' | append: '_light' }}",
-    "theme/{{ site.site_theme | default: 'default' | append: '_dark' }}",
-
-    "include/mixins",
-    "vendor/susy/susy",
-
-    "layout/reset",
-    "layout/base",
-
-    "include/utilities",
-    "layout/tables",
-    "layout/buttons",
-    "layout/notices",
-    "layout/masthead",
-    "layout/navigation",
-    "layout/footer",
-    "syntax",
-
-    "layout/forms",
-
-    "layout/page",
-    "layout/archive",
-    "layout/sidebar",
-    "layout/json_cv",
-
-    "vendor/font-awesome/fontawesome",
-    "vendor/font-awesome/solid",
-    "vendor/font-awesome/brands"
-;
-
 /* ====================================================
-   Custom Card UI Effect (悬浮卡片 + 渐变 + 夜间模式适配)
+   Custom Card UI Effect V2 (修复灰边 + 增强渐变 + 强力暗黑)
    ==================================================== */
 
-/* 1. 日间模式：极优雅的灰蓝色微渐变背景 */
-body {
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%) !important;
-  background-attachment: fixed !important; /* 关键：让渐变固定，滚动网页时背景不动，更显高级 */
+/* 1. 增强版日间渐变（加深灰蓝色对比度，凸显高级感，彻底覆盖白板） */
+html, body {
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%) !important;
+  background-attachment: fixed !important;
+  min-height: 100vh;
 }
 
-/* 2. 日间模式：纯白悬浮卡片 */
+/* 2. 修复底部灰色 Bug 块（直接把原模板自带的页脚背景色设为透明） */
+.page__footer {
+  background-color: transparent !important;
+  border-top: none !important;
+}
+
+/* 3. 纯白悬浮卡片 */
 .page, .archive {
   background-color: #ffffff !important;
   padding: 40px 50px !important;
   border-radius: 16px !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important; /* 阴影稍微加深，增加悬浮感 */
   margin-top: 30px !important;
   margin-bottom: 40px !important;
 }
 
-/* 3. 手机端响应式微调 */
+/* 手机端响应式微调 */
 @media (max-width: 768px) {
   .page, .archive {
     padding: 20px 20px !important;
@@ -70,16 +33,23 @@ body {
   }
 }
 
-/* 4. 夜间模式魔法 (Dark Mode) */
+/* 4. 终极暗黑模式（同时捕捉系统设置和模板内置的深色标识，双保险） */
 @media (prefers-color-scheme: dark) {
-  /* 夜间模式：深邃的极客黑灰渐变背景 */
-  body {
+  html, body {
     background: linear-gradient(135deg, #121212 0%, #1a1b1e 100%) !important;
   }
-  
-  /* 夜间模式：深灰色卡片（比背景稍微亮一点，保留卡片的悬浮层次感） */
   .page, .archive {
     background-color: #242526 !important; 
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important; /* 夜间模式下阴影稍微加深 */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
   }
+}
+
+/* 兼容模板可能自带的深色强制渲染，防止媒体查询漏网导致“白底浅字” */
+html.dark body, html[data-theme="dark"] body, body.dark-theme {
+    background: linear-gradient(135deg, #121212 0%, #1a1b1e 100%) !important;
+}
+html.dark .page, html[data-theme="dark"] .page, body.dark-theme .page,
+html.dark .archive, html[data-theme="dark"] .archive, body.dark-theme .archive {
+    background-color: #242526 !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
 }
