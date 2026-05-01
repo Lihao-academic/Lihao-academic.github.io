@@ -43,20 +43,20 @@
 ;
 
 /* ====================================================
-   Custom Card UI Effect V2 (修复灰边 + 增强渐变 + 强力暗黑)
+   Custom Card UI Effect V3 (明显渐变 + 完美适配月亮按钮)
    ==================================================== */
 
-/* 1. 增强版日间渐变 */
+/* 1. 增强版日间渐变（冰川蓝灰，对比度更强，绝对能看出来） */
 html, body {
-  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%) !important;
+  background: linear-gradient(135deg, #d5dfee 0%, #aab7c4 100%) !important;
   background-attachment: fixed !important;
   min-height: 100vh;
 }
 
-/* 2. 修复底部灰色 Bug 块 */
-.page__footer {
+/* 2. 彻底打通导航栏和底部的背景（让它们和渐变背景融为一体） */
+.masthead, .page__footer {
   background-color: transparent !important;
-  border-top: none !important;
+  border: none !important;
 }
 
 /* 3. 纯白悬浮卡片 */
@@ -77,22 +77,21 @@ html, body {
   }
 }
 
-/* 4. 终极暗黑模式 */
+/* 4. 终极暗黑模式（同时监听系统黑夜和月亮按钮） */
+/* 系统级黑夜 */
 @media (prefers-color-scheme: dark) {
-  html, body {
-    background: linear-gradient(135deg, #121212 0%, #1a1b1e 100%) !important;
-  }
-  .page, .archive {
-    background-color: #242526 !important;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
-  }
+  html, body { background: linear-gradient(135deg, #18191a 0%, #242526 100%) !important; }
+  .page, .archive { background-color: #333435 !important; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important; }
 }
 
-html.dark body, html[data-theme="dark"] body, body.dark-theme {
-    background: linear-gradient(135deg, #121212 0%, #1a1b1e 100%) !important;
+/* 兼容点击月亮按钮触发的黑夜模式（精准狙击模板自带类名） */
+html[data-theme="dark"] body, body.dark-theme, body.theme--dark, .initial-theme-dark body {
+  background: linear-gradient(135deg, #18191a 0%, #242526 100%) !important;
 }
-html.dark .page, html[data-theme="dark"] .page, body.dark-theme .page,
-html.dark .archive, html[data-theme="dark"] .archive, body.dark-theme .archive {
-    background-color: #242526 !important;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+html[data-theme="dark"] .page, html[data-theme="dark"] .archive,
+body.dark-theme .page, body.dark-theme .archive,
+body.theme--dark .page, body.theme--dark .archive,
+.initial-theme-dark .page, .initial-theme-dark .archive {
+  background-color: #333435 !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
 }
