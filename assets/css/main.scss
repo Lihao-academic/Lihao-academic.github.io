@@ -70,9 +70,9 @@ html, body {
   margin-bottom: 40px !important;
 }
 
-/* 📱 手机端响应式终极全屏清场（解决扁缩关键） */
+
+/* 📱 手机端响应式终极全屏清场（附带盒模型强制锁定） */
 @media (max-width: 768px) {
-  /* 定向针对手机端首页（.layout--home）的内容块进行全屏强修 */
   .layout--home #main {
     max-width: none !important;
     padding-left: 0 !important;
@@ -80,14 +80,14 @@ html, body {
     width: 100% !important;
   }
   
-  /* 强制拉伸手机端卡片 */
+  /* 强制拉伸手机端卡片，绝不允许压扁 */
   .page, .archive {
-    padding: 20px 20px !important;
-    border-radius: 12px !important;
-    /* 强制满宽，消除多余空白 */
-    width: calc(100% - 40px) !important;
+    box-sizing: border-box !important; /* 关键：锁定盒模型，防止 padding 干扰宽度计算 */
+    width: 92% !important; /* 放弃 calc，直接用 92% 相对宽度，留出完美边距 */
     margin-left: auto !important;
     margin-right: auto !important;
+    padding: 20px !important;
+    border-radius: 12px !important;
   }
 }
 
