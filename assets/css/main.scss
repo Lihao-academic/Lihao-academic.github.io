@@ -77,18 +77,38 @@ html, body {
   }
 }
 
-/* 4. 终极暗黑模式（保留高级暗紫灰，修复底部色差） */
+/* 4. 终极暗黑模式（保留高级暗紫灰，彻底修复顶部横幅突兀问题） */
 
 /* 系统级黑夜 */
 @media (prefers-color-scheme: dark) {
   html, body { background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important; }
   .page, .archive { background-color: #1e1e1e !important; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important; }
+  /* 强制系统黑夜模式下的横幅透明 */
+  .masthead, .masthead__inner-wrap, .greedy-nav {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+  }
 }
 
 /* 兼容点击月亮按钮触发的黑夜模式 */
 html[data-theme="dark"] body, body.dark-theme, body.theme--dark, .initial-theme-dark body, body[class*="dark"], html.dark body {
   background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important;
 }
+
+/* [关键修复] 强制干掉点击月亮后的横幅底色，让紫灰渐变完美透出 */
+html[data-theme="dark"] .masthead, html[data-theme="dark"] .masthead__inner-wrap, html[data-theme="dark"] .greedy-nav,
+body.dark-theme .masthead, body.dark-theme .masthead__inner-wrap, body.dark-theme .greedy-nav,
+body.theme--dark .masthead, body.theme--dark .masthead__inner-wrap, body.theme--dark .greedy-nav,
+.initial-theme-dark .masthead, .initial-theme-dark .masthead__inner-wrap, .initial-theme-dark .greedy-nav,
+body[class*="dark"] .masthead, body[class*="dark"] .masthead__inner-wrap, body[class*="dark"] .greedy-nav,
+html.dark .masthead, html.dark .masthead__inner-wrap, html.dark .greedy-nav {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-bottom: none !important;
+}
+
 
 /* 夜间模式卡片变深色 */
 html[data-theme="dark"] .page, html[data-theme="dark"] .archive,
