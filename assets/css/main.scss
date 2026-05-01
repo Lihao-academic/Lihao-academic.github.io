@@ -43,25 +43,24 @@
 ;
 
 /* ====================================================
-   Custom Card UI Effect V8 (回归 V2 骨架 + 强渐变 + 完美暗黑)
+   Custom Card UI Effect V10 (暴力上色版：彻底封杀底层白骨架)
    ==================================================== */
 
-/* 1. 全局渐变背景（使用你确认能看清的明显天蓝渐变） */
+/* 1. 全局渐变背景（天空之境 & 暗紫灰） */
 html, body {
   background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%) !important;
   background-attachment: fixed !important;
-  min-height: 100vh !important; /* 关键：确保背景铺满到底部，防止夜间模式底部断层 */
+  min-height: 100vh !important;
 }
 
-/* 2. 底部页脚透明化（保留 V2 的优秀设定，消除底部多余色块） */
-.page__footer {
-  background-color: transparent !important;
-  border-top: none !important;
-}
-
-/* 3. 纯白悬浮主内容卡片 */
-.page, .archive {
+/* 2. 日间模式：强制把导航栏、内容卡片、页脚全部刷成统一的纯白 */
+.page, .archive, .masthead, .masthead__inner-wrap, .page__footer, .page__footer-wrapper {
   background-color: #ffffff !important;
+  border: none !important;
+}
+
+/* 给卡片单独加上高级阴影和圆角 */
+.page, .archive {
   padding: 40px 50px !important;
   border-radius: 16px !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08) !important;
@@ -77,46 +76,33 @@ html, body {
   }
 }
 
-/* 4. 终极暗黑模式（保留高级暗紫灰，彻底修复顶部横幅突兀问题） */
-
-/* 系统级黑夜 */
+/* 3. 夜间模式：统一刷成极客深灰（#1e1e1e），彻底覆盖白底 */
+/* 监听系统级黑夜 */
 @media (prefers-color-scheme: dark) {
   html, body { background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important; }
-  .page, .archive { background-color: #1e1e1e !important; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important; }
-  /* 强制系统黑夜模式下的横幅透明 */
-  .masthead, .masthead__inner-wrap, .greedy-nav {
-    background: transparent !important;
-    background-color: transparent !important;
+  .page, .archive, .masthead, .masthead__inner-wrap, .page__footer, .page__footer-wrapper {
+    background-color: #1e1e1e !important;
+    box-shadow: none !important;
     border: none !important;
   }
+  .page, .archive { box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important; }
 }
 
-/* 兼容点击月亮按钮触发的黑夜模式 */
-html[data-theme="dark"] body, body.dark-theme, body.theme--dark, .initial-theme-dark body, body[class*="dark"], html.dark body {
+/* 监听点击月亮按钮触发的黑夜（地毯式轰炸所有可能的类名） */
+html[data-theme="dark"] body, body.dark-theme, body.theme--dark, body[class*="dark"], html.dark body {
   background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important;
 }
 
-/* [关键修复] 强制干掉点击月亮后的横幅底色，让紫灰渐变完美透出 */
-html[data-theme="dark"] .masthead, html[data-theme="dark"] .masthead__inner-wrap, html[data-theme="dark"] .greedy-nav,
-body.dark-theme .masthead, body.dark-theme .masthead__inner-wrap, body.dark-theme .greedy-nav,
-body.theme--dark .masthead, body.theme--dark .masthead__inner-wrap, body.theme--dark .greedy-nav,
-.initial-theme-dark .masthead, .initial-theme-dark .masthead__inner-wrap, .initial-theme-dark .greedy-nav,
-body[class*="dark"] .masthead, body[class*="dark"] .masthead__inner-wrap, body[class*="dark"] .greedy-nav,
-html.dark .masthead, html.dark .masthead__inner-wrap, html.dark .greedy-nav {
-  background: transparent !important;
-  background-color: transparent !important;
+html[data-theme="dark"] .page, html[data-theme="dark"] .archive, html[data-theme="dark"] .masthead, html[data-theme="dark"] .masthead__inner-wrap, html[data-theme="dark"] .page__footer, html[data-theme="dark"] .page__footer-wrapper,
+body.dark-theme .page, body.dark-theme .archive, body.dark-theme .masthead, body.dark-theme .masthead__inner-wrap, body.dark-theme .page__footer, body.dark-theme .page__footer-wrapper,
+body.theme--dark .page, body.theme--dark .archive, body.theme--dark .masthead, body.theme--dark .masthead__inner-wrap, body.theme--dark .page__footer, body.theme--dark .page__footer-wrapper,
+body[class*="dark"] .page, body[class*="dark"] .archive, body[class*="dark"] .masthead, body[class*="dark"] .masthead__inner-wrap, body[class*="dark"] .page__footer, body[class*="dark"] .page__footer-wrapper,
+html.dark .page, html.dark .archive, html.dark .masthead, html.dark .masthead__inner-wrap, html.dark .page__footer, html.dark .page__footer-wrapper {
+  background-color: #1e1e1e !important;
   border: none !important;
-  border-bottom: none !important;
 }
 
-
-/* 夜间模式卡片变深色 */
-html[data-theme="dark"] .page, html[data-theme="dark"] .archive,
-body.dark-theme .page, body.dark-theme .archive,
-body.theme--dark .page, body.theme--dark .archive,
-.initial-theme-dark .page, .initial-theme-dark .archive,
-body[class*="dark"] .page, body[class*="dark"] .archive,
-html.dark .page, html.dark .archive {
-  background-color: #1e1e1e !important;
+/* 确保夜间卡片的阴影依然生效 */
+html[data-theme="dark"] .page, html[data-theme="dark"] .archive, body.dark-theme .page, body.dark-theme .archive, body.theme--dark .page, body.theme--dark .archive, body[class*="dark"] .page, body[class*="dark"] .archive, html.dark .page, html.dark .archive {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
 }
