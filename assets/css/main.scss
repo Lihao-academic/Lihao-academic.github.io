@@ -41,3 +41,30 @@
     "vendor/font-awesome/solid",
     "vendor/font-awesome/brands"
 ;
+
+/* ====================================================
+   Custom Card UI Effect (悬浮卡片效果改造)
+   ==================================================== */
+
+/* 1. 把最底层的网页背景变成极淡的灰蓝色，提供层次感 */
+body {
+  background-color: #f5f7fa !important; 
+}
+
+/* 2. 把正文阅读区和列表区变成悬浮的纯白卡片 */
+.page, .archive {
+  background-color: #ffffff !important;
+  padding: 40px 50px !important; /* 卡片内部留出舒适的呼吸边缘 */
+  border-radius: 16px !important; /* 现代感的圆角 */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04) !important; /* 极其柔和的高级阴影 */
+  margin-top: 30px !important; /* 顶部留白 */
+  margin-bottom: 40px !important; /* 底部留白 */
+}
+
+/* 3. 微调手机端的显示效果，防止卡片把屏幕撑爆 */
+@media (max-width: 768px) {
+  .page, .archive {
+    padding: 20px 20px !important;
+    border-radius: 12px !important;
+  }
+}
