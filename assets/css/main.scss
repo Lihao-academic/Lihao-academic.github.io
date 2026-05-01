@@ -43,36 +43,41 @@
 ;
 
 /* ====================================================
-   Custom Card UI Effect V6 (全穿透除套娃 + 苹果级柔和渐变)
+   Custom Card UI Effect V7 (彻底剿灭顶部条幅 + 恢复强渐变)
    ==================================================== */
 
-/* 1. 强制网页底座铺满，并扒掉最高层 HTML 的底漆 */
+/* 1. 强制网页底座铺满 */
 html {
   background: transparent !important;
   min-height: 100vh !important;
 }
 
-/* 2. 日间高级渐变：极其清透的“银灰 -> 柔和天蓝” (Apple Style) */
+/* 2. 恢复之前你最满意的明显天蓝渐变 */
 body {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
+  background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%) !important;
   background-attachment: fixed !important;
   min-height: 100vh !important;
   margin: 0 !important;
 }
 
-/* 3. 俄罗斯套娃终结者：彻底炸毁导航栏和页脚的所有内外层伪装！ */
-.masthead,
-.masthead__inner-wrap,
-.greedy-nav,
+/* 3. 顶部条幅的“终极火葬场”：涵盖所有可能的 HTML 标签和类名 */
+div.masthead,
+div.masthead__inner-wrap,
+div.masthead__menu,
+nav.greedy-nav,
+ul.visible-links,
+ul.hidden-links,
+header,
 #site-nav,
-.initial-content,
-#main,
-.page__wrapper,
-.page__footer,
-.page__footer-wrapper {
+div.initial-content,
+div#main,
+div.page__wrapper,
+div.page__footer,
+footer.page__footer-wrapper {
   background: transparent !important;
   background-color: transparent !important;
   border: none !important;
+  border-bottom: none !important;
   box-shadow: none !important;
 }
 
@@ -94,23 +99,28 @@ body {
   }
 }
 
-/* 5. 终极暗黑模式（彻底锁死所有类的变色逻辑，一丝底色都不漏） */
+/* 5. 完美的深紫灰暗黑模式 */
 html[data-theme="dark"] body,
 html[data-theme="dark"],
 body.dark-theme,
 body.theme--dark,
 body[class*="dark"],
 html[class*="dark"] body {
-  background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important; /* 极客深紫灰渐变 */
+  background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important;
 }
 
-/* 强杀夜间模式下导航栏可能再次冒出来的底色 */
-html[data-theme="dark"] .masthead__inner-wrap,
-html[data-theme="dark"] .greedy-nav,
-body.dark-theme .masthead__inner-wrap,
-body.dark-theme .greedy-nav {
+/* 夜间模式下再次强制枪毙顶部条幅的底色 */
+html[data-theme="dark"] div.masthead,
+html[data-theme="dark"] div.masthead__inner-wrap,
+html[data-theme="dark"] nav.greedy-nav,
+body.dark-theme div.masthead,
+body.dark-theme div.masthead__inner-wrap,
+body.dark-theme nav.greedy-nav,
+body[class*="dark"] div.masthead {
   background: transparent !important;
   background-color: transparent !important;
+  border: none !important;
+  border-bottom: none !important;
 }
 
 /* 夜间模式卡片自动变深 */
