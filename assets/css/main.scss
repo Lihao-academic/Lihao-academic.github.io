@@ -43,7 +43,7 @@
 ;
 
 /* ====================================================
-   Custom Card UI Effect V5 (核弹级覆盖：强渐变 + 扒除底漆 + 完美暗黑)
+   Custom Card UI Effect V6 (全穿透除套娃 + 苹果级柔和渐变)
    ==================================================== */
 
 /* 1. 强制网页底座铺满，并扒掉最高层 HTML 的底漆 */
@@ -52,16 +52,19 @@ html {
   min-height: 100vh !important;
 }
 
-/* 2. 极其明显的日间渐变（天蓝 -> 浅天蓝），绝对一眼能看出来！ */
+/* 2. 日间高级渐变：极其清透的“银灰 -> 柔和天蓝” (Apple Style) */
 body {
-  background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%) !important;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%) !important;
   background-attachment: fixed !important;
   min-height: 100vh !important;
   margin: 0 !important;
 }
 
-/* 3. 彻底炸毁模板自带的“白块”和边框（让渐变完美透出来） */
+/* 3. 俄罗斯套娃终结者：彻底炸毁导航栏和页脚的所有内外层伪装！ */
 .masthead,
+.masthead__inner-wrap,
+.greedy-nav,
+#site-nav,
 .initial-content,
 #main,
 .page__wrapper,
@@ -91,7 +94,7 @@ body {
   }
 }
 
-/* 5. 终极暗黑模式（地毯式轰炸所有可能的黑夜标签，防止底部漏蓝光） */
+/* 5. 终极暗黑模式（彻底锁死所有类的变色逻辑，一丝底色都不漏） */
 html[data-theme="dark"] body,
 html[data-theme="dark"],
 body.dark-theme,
@@ -99,6 +102,15 @@ body.theme--dark,
 body[class*="dark"],
 html[class*="dark"] body {
   background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%) !important; /* 极客深紫灰渐变 */
+}
+
+/* 强杀夜间模式下导航栏可能再次冒出来的底色 */
+html[data-theme="dark"] .masthead__inner-wrap,
+html[data-theme="dark"] .greedy-nav,
+body.dark-theme .masthead__inner-wrap,
+body.dark-theme .greedy-nav {
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 /* 夜间模式卡片自动变深 */
