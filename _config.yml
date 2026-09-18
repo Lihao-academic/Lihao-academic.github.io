@@ -16,7 +16,7 @@ description              : &description "Li Hao's academic portfolio"   # Update
 url                      : https://Lihao-academic.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
                                                            # or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "academicpages/academicpages.github.io"
+repository               : "Lihao-academic/Lihao-academic.github.io"
 
 # Site Author - The following control what appear as part of the author content on the side bar.
 #               If a field is blank the icon and link will not appear, otherwise it will be shown.
@@ -24,9 +24,9 @@ repository               : "academicpages/academicpages.github.io"
 author:
   # Biographic information
   avatar           : "profile.png"
-  name             : "Li Hao (李豪,the surname is Li)"
+  name             : "Li Hao (李豪)"
   pronouns         : # example: "she/her"  
-  bio              : "Student of Master's program from University of Milano-Bococca"
+  bio              : "Student of Master's program from University of Milano-Bicocca"
   location         : "Milan, Italy"
   #employer         : "Red Brick University"
   uri              : # URL
