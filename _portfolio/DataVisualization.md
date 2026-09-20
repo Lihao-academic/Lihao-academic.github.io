@@ -1,6 +1,6 @@
 ---
-title: "Deep Learning: Action Recognition on HMDB51"
-excerpt: "使用卷积神经网络完成的图像分类期末项目。"
+title: "Talents, Industry, and Richness: How are they related? "
+excerpt: "讨论了OECD国家的工业发展、购买力水平和STEM领域毕业生三者直接的关系"
 collection: portfolio
 ---
 

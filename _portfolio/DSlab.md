@@ -1,6 +1,6 @@
 ---
-title: "Deep Learning: Action Recognition on HMDB51"
-excerpt: "使用卷积神经网络完成的图像分类期末项目。"
+title: "From Conceptionization to Operatization: Traditional and Digital Financial Literacy in Italy"
+excerpt: "利用概念化和操作化把抽象概念变成可比较指标，以意大利金融识字率为数据集"
 collection: portfolio
 ---
 

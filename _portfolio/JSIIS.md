@@ -1,6 +1,6 @@
 ---
-title: "Deep Learning: Action Recognition on HMDB51"
-excerpt: "使用卷积神经网络完成的图像分类期末项目。"
+title: "The Impact of ICTS and Artificial Intelligence How are they reshaping power structures, both international and domestic"
+excerpt: "结合一些概念和案例讨论了信息通信技术与AI对国内国际的政治影响"
 collection: portfolio
 ---
 
