@@ -18,7 +18,7 @@ Currently, I am particularly interested in the interdisciplinary application of 
 
 
 
-===
+---
 
 我目前就读于意大利米兰比可卡大学（University of Milano-Bicocca）数据科学硕士项目，本科毕业于桂林电子科技大学光电信息科学与工程专业。
 
