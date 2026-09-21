@@ -58,7 +58,7 @@ https://github.com/Lihao-academic/Course_Work_Repo
 
 这一步是为了计算加速，因为我们个人的电脑能力有限（尽管后面又选择使用云电脑训练）。我们把预处理的帧存起来，就不用每批次训练都重新解码了，然后就是使用批处理，我们把多个批次一起处理，来增加泛化能力。
 
-![数据管道/data pipeline](/files/dl-project/dpp.png){: width="70%" }
+![数据管道/data pipeline](/files/dl-project/dpp.png)
 
 
 # 解决方案
@@ -70,7 +70,7 @@ https://github.com/Lihao-academic/Course_Work_Repo
 
 最后，我们使用一个全连接层做输出。根据我们的搜索，这样的模型和架构预计准确率在55%~70%区间。模型架构如图所示：
 
-![模型架构 / Model architecture](/files/dl-project/architectureCNN+RNN.png){: width="70%" }
+![模型架构 / Model architecture](/files/dl-project/architectureCNN+RNN.png)
 
 ## 训练：分两阶段进行
 
@@ -88,14 +88,14 @@ https://github.com/Lihao-academic/Course_Work_Repo
 
 训练方案如图所示：
 
-![两阶段训练/Two-Stage Fine-tuning](/files/dl-project/two-stage%20fine-tuning.png){: width="70%" }
+![两阶段训练/Two-Stage Fine-tuning](/files/dl-project/two-stage%20fine-tuning.png)
 
 
 ## 过拟合问题
 
 训练结果出来以后很快就发现问题了，我们发现，训练集上的准确率高达99%，而验证集上的准确率只有62%，这说明已经出现了严重的过拟合。
 
-![首次训练 / Fisrt traning](/files/dl-project/model%20after%20fine-tuning.png){: width="70%" }
+![首次训练 / Fisrt traning](/files/dl-project/model%20after%20fine-tuning.png)
 
 进一步，我们还发现top5 accuracy，基本都在80%左右，也就是说，如果让模型猜1次，那么模型的准确率只有62%，而如果让模型猜5次，那就有80%了。
 
@@ -115,13 +115,13 @@ top 5 acc 80%意味着模型虽然不能精准分类，但是至少可以大概�
 
 这一步是时间方面的增强，我们主要使用的就只有一种，前文提到过的Temporal Segment Networks Random Sampling, 具体来说，我们把视频分成多个小段，然后在每个小段里面随机抽样一帧，这样一方面能保证这些帧的时序，一方面还可以保证每次训练让模型吃到相似但是不相同的数据。
 
-![TSN随机采样 / TSN Random Sampling](/files/dl-project/TSN.png){: width="70%" }
+![TSN随机采样 / TSN Random Sampling](/files/dl-project/TSN.png)
 
 * Frame Differencing
 
 帧差法是一种有趣的，针对动作的处理方法，这个方法把连续两帧的数据做对比，之保留变化的部分，而删去一样的部分，这样就把动作提取出来了。这也可以极大的减少模型对背景的依赖，防止模型记住背景的物品等。当然这个办法有个问题，就是这样会导致处理静态问题的能力更差，但我们采用了以后，确实增加了整体的准确率。
 
-![帧差法 / Frame Differencing](/files/dl-project/Framediff.png){: width="70%" }
+![帧差法 / Frame Differencing](/files/dl-project/Framediff.png)
 
 ## 模型修改
 
@@ -136,7 +136,7 @@ top 5 acc 80%意味着模型虽然不能精准分类，但是至少可以大概�
 
 label smoothing就是强行限制参数的范围，不让他们趋于无穷，这会导致模型对确信的类别的正确率永远无法到达1，而对不自信的类别永远会有一个保底的概率，这样对于本就表现好的分类，不会影响分类结果，但是可以防止参数值变得极端，进而改善模型表现。
 
-![Label Smoothing](/files/dl-project/label%20smoothing.webp){: width="70%" }
+![Label Smoothing](/files/dl-project/label%20smoothing.webp)
 
 * Feature Bottleneck Layer
 
@@ -164,7 +164,7 @@ top5准确率的提升则都接近6%，说明模型的精细化分类能力也�
 
 如果画一个Confusion Matrix的话，纵列是真类别，横坐标是预测类别，根据模型预测的数量来填色，预测的类别越多，颜色就越深，如图，我们可以看到一个清晰的对角线，这说明我们的模型真的在起作用，大部分情况下，都把一个视频分类到它所属的真正类别上。
 
-![Confusion Matrix](/files/dl-project/cm.png){: width="70%" }
+![Confusion Matrix](/files/dl-project/cm.png)
 
 其中，有些类的表现非常好，如：
 * Golf(100%)
