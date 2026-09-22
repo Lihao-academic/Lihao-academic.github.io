@@ -13,7 +13,7 @@ order: 5
 https://github.com/Lihao-academic/Course_Work_Repo
 ```
 
-# 项目介绍
+## 项目介绍
 
 本项目是一个社会学报告，没有技术分析。下面的内容基本是报告内容的精简与整理。
 
