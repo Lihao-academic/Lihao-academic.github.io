@@ -1,6 +1,6 @@
 ---
 title: "Deep Learning: Action Recognition on HMDB51"
-excerpt: "使用卷积神经网络完成的图像分类期末项目。 <br>![](/files/dl-project/architectureCNN+RNN.png){: width='70%' }"
+excerpt: "深度学习的课程项目，使用CNN+RNN架构，基于HMDB51实现了视频分类。 <br>![](/files/dl-project/architectureCNN+RNN.png){: width='70%' }"
 collection: portfolio
 order: 1
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Talents, Industry, and Richness: How are they related? "
-excerpt: "数据可视化课程项目，讨论了OECD国家的工业发展、购买力水平和STEM领域毕业生三者直接的关系<br>![](/files/DataVisualization/dataviz_cover.png)"
+excerpt: "数据可视化课程项目，自行搜索数据并提出研究问题，讨论了OECD国家的工业发展、购买力水平和STEM领域毕业生三者直接的关系<br>![](/files/DataVisualization/dataviz_cover.png)"
 collection: portfolio
 order: 4
 ---

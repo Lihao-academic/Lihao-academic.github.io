@@ -1,6 +1,6 @@
 ---
 title: "The Impact of ICTS and Artificial Intelligence: How are they reshaping power structures, both international and domestic"
-excerpt: "结合一些概念和案例讨论了信息通信技术与AI对国内国际的政治影响 <br>![](/files/JSIIS/ICT%20cover.png){: width='70%' }"
+excerpt: "结合一些概念和案例讨论了信息通信技术与AI对国内国际的政治影响，并撰写了一篇报告<br>![](/files/JSIIS/ICT%20cover.png){: width='70%' }"
 collection: portfolio
 order: 5
 ---
