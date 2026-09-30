@@ -1,6 +1,6 @@
 ---
 title: "Traditional and Digital Financial Literacy in Italy"
-excerpt: "经过操作化把抽象概念变成可比较指标，并进行了详细的探索和分析，以意大利金融识字率为数据集<br>![](/files/DSlab/DSlab-cover.png)"
+excerpt: "经过操作化把抽象概念变成可比较指标，并进行了详细的探索和分析，以意大利金融识字率为数据集<br>![](/files/DSlab/DSlab-cover.png){: width='70%' }"
 collection: portfolio
 order: 3
 ---
