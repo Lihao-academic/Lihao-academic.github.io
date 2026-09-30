@@ -2,7 +2,7 @@
 title: "FMA: Pairs Trading on the S&P 500"
 excerpt: "金融市场分析课程，基于S&P 500实现了一下配对交易策略，构造交易对并回测模拟，最终没能实现显著收益，但是找到了市场中性，实现了分散风险的效果<br>![](/files/FMA/FMA_cover.png){: width='70%' }"
 collection: portfolio
-order: 2
+order: 3
 ---
 
 *There's no English version for the moment, check this project on Github*
