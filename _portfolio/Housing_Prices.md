@@ -246,6 +246,7 @@ Feature Set C : Data -> Feature Eningeering -> BIC -> Preprocessing -> training
 基线模型一开始也是数据处理。我直接读取了之前保存的`train_cleaned.csv`，这个数据集其实就已经可以喂给模型了。
 
 不过和数据处理阶段不同的是，我们需要划分验证集，官方有测试集，但是测试集数据显然不能用来做优化，我们需要在训练数据里面额外画出来验证集。我们使用sklearn的函数划分，比例是20%
+
 ```
 X_train, X_val, y_train, y_val = train_test_split(
     X,y,
@@ -253,6 +254,7 @@ X_train, X_val, y_train, y_val = train_test_split(
     random_state=42,# 种子设置为42
 )
 ```
+
 下一步是Scaling and One hot Encoding.同样是复制前面的代码。有个小问题是，encoder实际上是可以理解为一个可学习的功能器件，在做编码的时候，需要根据一定的数据来构造转换规则。而这样，如果在trainset上学习一下，可以在training set 和validation set两个地方使用，而不能在validation上使用。因为validation模拟的是不能得到的数据，如果让validation自己根据自己来做转化，肯定效果好，但这样不符合真实假设。说白了，就是轻微的数据泄露。
 
 
@@ -264,12 +266,14 @@ encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
 总之，代码和前面的一样，是重复处理。
 
 训练模型就更简单了，也是调用sklearn的现成函数，如：
+
 ```
 from sklearn.linear_model import LinearRegression
 LRmodel = LinearRegression()
 LRmodel.fit(X_train, y_train)
 print("Fit succeed")
 ```
+
 有个问题是，这个fit()结束了以后会自动产生一些输出，而这会引发Pycharm里的Jupyter Notebook的一个bug，就必须切断这个输出，下面再加一句什么，或者用分号阻断输出等。
 
 
@@ -287,11 +291,13 @@ MAE： 0.083
 我们直接下一步，做交叉验证。这样整体baseline就算完全跑通了。交叉验证也可以直接用sklearn里面的现成函数，不过出于学习的目的，我们采用自动化程度比较低的KFold.split()来处理，这样可以理解的更清晰。当然后面我们采用了自动化程度更高的方法。
 
 首先我把预处理函数封装了一下，然后
+
 ```
 def preprocessing(X_train, X_val, y_train, y_val):
     ...
     return X_train, X_val, y_train, y_val
 ```
+
 数据处理代码写好后，利用KFold.split()辅助划分，这个函数返回一个列表结构，我们需要手动在这个列表里遍历，每次都需要重新处理，重新训练模型，然后记录分数。大致逻辑如下：
 
 ```
@@ -322,6 +328,7 @@ MAE:  [0.0069 0.0085 0.0093 0.0081 0.008 ]
 接着我又做了一次Pipeline的方法，重复了一遍。大致思路很简单，
 
 1. 定义preprocessor
+
 ```
 preprocessor = ColumnTransformer(
     transformers=[
@@ -330,7 +337,9 @@ preprocessor = ColumnTransformer(
     ]
 )
 ```
+
 2. 用Pipeline把preprocessor和训练绑定起来
+
 ```
 pipeline = Pipeline(
     steps=[
@@ -339,8 +348,10 @@ pipeline = Pipeline(
     ]
 )
 ```
+
 3. 使用cross_validate()自动执行交叉验证
 同样需要利用KFold定义划分，但是不用自己写循环了，cross_validate()可以自动执行：
+
 ```
 scores = cross_validate(
     pipeline,
@@ -351,9 +362,11 @@ scores = cross_validate(
     return_train_score=True
 )
 ```
+
 这里有个小细节，就是我们传入的y是取log的，因为preprocessor没有包括y的处理。
 
 这一轮交叉验证跑通了Pipeline的方法，我们后面用的都是这种方法。最后得到的效果是这样的：
+
 ```
 train_RMSE 0.09356 ± 0.00267
 test_RMSE 0.15402 ± 0.0394
@@ -378,6 +391,7 @@ BIC = n * log(RSS / n) + k * log(n)
 计算BIC还是比较简单的，函数定义为`calculate_BIC(X_train, y_train)`，返回BIC值
 
 根据BIC选择列就比较复杂了。首先需要获得当前的所有列名，然后计算一下删去每个列的BIC值，确定效果最好的BIC，和对应的列，删去新的列以后，再次做循环，概念代码如下：
+
 ```
 def BIC_selector(X_train, y_train):
     # 先获得初始BIC, 列名
@@ -400,15 +414,18 @@ def BIC_selector(X_train, y_train):
 ```
 
 代码写好以后，我们先看一下这两个函数能不能正常跑通，直接看效果
+
 ```
 selected_X = BIC_selector(X,y)
 selected_X.shape
 ```
+
 结果是可以正常删列，但是我的电脑跑一次大概是13-14分钟，这个测试成本稍高。因为要删200列，每删一个列都需要遍历200个其他的列，所以是n(n-1)/2的复杂度，大概要拟合2万多次，计算量是比较大的。
 
 在确认两个函数都可以正常运行以后，我们后面要做交叉验证，还需要使用Pipeline来自动化完成，所以需要想办法把BIC写进transformer兼容的形式。
 
 这就是说，需要写两个类。这里的transformer兼容，具体来说，就是指需要类里面有两个函数，一个是fit()，一个是transform()；执行这个BIC删列的类的结构是这样的：
+
 ```
 
 class BICSelector(BaseEstimator, TransformerMixin):
@@ -423,6 +440,7 @@ class BICSelector(BaseEstimator, TransformerMixin):
 ```
 
 我们经过测试，确定这个类可以正常使用，就开始组装pipeline，同样，先定义preprocessor，然后用pipeline组装起来，这里就需要多一步了
+
 ```
 pipeline = Pipeline(
     steps=[
@@ -432,18 +450,19 @@ pipeline = Pipeline(
     ]
 )
 ```
+
 正因为我们前面把函数写成了兼容transformer的形式，才可以在这里放进Pipeline自动处理。
 
 然后做了这个组合，也就是Set B的交叉验证，思路和前面相同，不再重复，交叉验证跑了55分钟，计算量相当大。现在我们得到的结果是：
 
 |scorings| Set A(baseline)| Set B (only selection)|
 |--------|----------------|------------------------|
-train_RMSE| 0.09356 ± 0.00267|0.1038 ± 0.0026|
-test_RMSE| 0.15402 ± 0.0394|0.1808 ± 0.0467|
-train_MAE| 0.06565 ± 0.0013|0.0741 ± 0.0013|
-test_MAE| 0.08997 ± 0.0065|0.0894 ± 0.008|
-train_R2| 0.94506 ± 0.00306|0.9324 ± 0.0035|
-test_R2| 0.84298 ± 0.08305|0.7792 ± 0.101|
+|train_RMSE| 0.09356 ± 0.00267|0.1038 ± 0.0026|
+|test_RMSE| 0.15402 ± 0.0394|0.1808 ± 0.0467|
+|train_MAE| 0.06565 ± 0.0013|0.0741 ± 0.0013|
+|test_MAE| 0.08997 ± 0.0065|0.0894 ± 0.008|
+|train_R2| 0.94506 ± 0.00306|0.9324 ± 0.0035|
+|test_R2| 0.84298 ± 0.08305|0.7792 ± 0.101|
 
 哈哈，仔细看，发现其实SetB的表现明显要差不少，首先是RMSE，均方根误差，这次Set B的均方根误差，在测试集上的表现似乎不但没有明显提升，反而还稍微下降了一点。测试集上的则表现下降更明显，本来均方根误差只有0.15左右，现在变成了0.18左右；
 
@@ -457,6 +476,7 @@ R2最明显，训练集上面的差别不太明显，而测试集上的表现下
 
 
 Set B完成以后，就得开始Set C的，根据我们之前的设计，Set C 就是多了一个特征工程的部分，同样，为了自动化测试，需要把特征工程写成transformer兼容的类，这个很简单，fit什么都不做，因为没有任何需要学习的参数，直接在transform()阶段返回结果就行了，非常简单：
+
 ```
 class FeatureEngineering(BaseEstimator, TransformerMixin):
     def __init__(self):
@@ -471,14 +491,15 @@ class FeatureEngineering(BaseEstimator, TransformerMixin):
 ```
 
 最后，得到新的结果
+
 |scorings| Set A(baseline)| Set B (only selection)| Set C (FN+selection)|
 |--------|----------------|------------------------|------|
-train_RMSE| 0.09356 ± 0.00267|0.1038 ± 0.0026|0.1025 ± 0.0022|
-test_RMSE| 0.15402 ± 0.0394|0.1808 ± 0.0467|0.1794 ± 0.0426|
-train_MAE| 0.06565 ± 0.0013|0.0741 ± 0.0013|0.0724 ± 0.0015|
-test_MAE| 0.08997 ± 0.0065|0.0894 ± 0.008|0.0895 ± 0.0078|
-train_R2| 0.94506 ± 0.00306|0.9324 ± 0.0035|0.9341 ± 0.0028|
-test_R2| 0.84298 ± 0.08305|0.7792 ± 0.101|0.7857 ± 0.0949|
+|train_RMSE| 0.09356 ± 0.00267|0.1038 ± 0.0026|0.1025 ± 0.0022|
+|test_RMSE| 0.15402 ± 0.0394|0.1808 ± 0.0467|0.1794 ± 0.0426|
+|train_MAE| 0.06565 ± 0.0013|0.0741 ± 0.0013|0.0724 ± 0.0015|
+|test_MAE| 0.08997 ± 0.0065|0.0894 ± 0.008|0.0895 ± 0.0078|
+|train_R2| 0.94506 ± 0.00306|0.9324 ± 0.0035|0.9341 ± 0.0028|
+|test_R2| 0.84298 ± 0.08305|0.7792 ± 0.101|0.7857 ± 0.0949|
 
 如果仔细观察，就发现set C其实对比set B还是有轻微的提升的，RMSE稍微降低了，MAE也稍微降低了，R2也都稍微增加了，不过显然，手工特征工程似乎并不能抵挡BIC的损害。
 
@@ -491,6 +512,7 @@ test_R2| 0.84298 ± 0.08305|0.7792 ± 0.101|0.7857 ± 0.0949|
 值得说一说的是，我发现测试集和训练集竟然数据性质不一样，测试集里面出现了训练集里没有出现的新的问题，而且还有个问题，那就是我们训练集处理缺失的时候，删去了几行，而测试集一定不能删，所以也必须想新的办法。
 
 由于我在做这一步的时候，已经固定了许多代码，所以我的处理方法是，在数据清洗的步骤中固定的函数`clean_data()`中额外加一个参数，然后据此专门加一步处理：
+
 ```
 def clean_data(df_train, test_data = False):
     .....
